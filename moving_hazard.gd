@@ -9,6 +9,7 @@ func _ready():
 	tween.set_loops()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "global_position", global_position + destination, duration)
+	print(name)
 	tween.tween_property(self, "global_position", global_position, duration)
 
 

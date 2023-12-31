@@ -1,6 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3rmuty5a2ewx"]
+[gd_scene load_steps=10 format=3 uid="uid://d3rmuty5a2ewx"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_3f7vu"]
+[ext_resource type="AudioStream" uid="uid://b24guh1jtu228" path="res://Audio/SFX - Death Explosion.ogg" id="2_2xh1k"]
+[ext_resource type="AudioStream" uid="uid://dglxruul4dy36" path="res://Audio/SFX - Success.ogg" id="3_2n8qf"]
+[ext_resource type="AudioStream" uid="uid://dumc6dvn6kn8b" path="res://Audio/SFX - Main engine thrust.ogg" id="4_lv1ao"]
+[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://Particles/booster_particles.tscn" id="5_s1ddk"]
+[ext_resource type="PackedScene" uid="uid://dcecb8hw7dbrv" path="res://Particles/explosion_particles.tscn" id="6_i2smk"]
+[ext_resource type="PackedScene" uid="uid://jfwajmrh6ca7" path="res://Particles/success_particles.tscn" id="7_fbrou"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_85g27"]
 
@@ -21,5 +27,27 @@ mesh = SubResource("CylinderMesh_85g27")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_agkom")
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_2xh1k")
+
+[node name="SuccessAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2n8qf")
+
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_lv1ao")
+
+[node name="BoosterParticles" parent="." instance=ExtResource("5_s1ddk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="RightBoosterParticles" parent="." instance=ExtResource("5_s1ddk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -1, 0)
+
+[node name="LeftBoosterParticles" parent="." instance=ExtResource("5_s1ddk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -1, 0)
+
+[node name="ExplosionParticles" parent="." instance=ExtResource("6_i2smk")]
+
+[node name="SuccessParticles" parent="." instance=ExtResource("7_fbrou")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
