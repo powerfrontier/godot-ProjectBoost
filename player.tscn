@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3rmuty5a2ewx"]
+[gd_scene load_steps=21 format=3 uid="uid://d3rmuty5a2ewx"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_3f7vu"]
 [ext_resource type="AudioStream" uid="uid://b24guh1jtu228" path="res://Audio/SFX - Death Explosion.ogg" id="2_2xh1k"]
@@ -44,6 +44,21 @@ height = 0.4
 [sub_resource type="TorusMesh" id="TorusMesh_hpxea"]
 inner_radius = 0.4
 outer_radius = 0.5
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qamg2"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_2jxq5"]
+sky_material = SubResource("ProceduralSkyMaterial_qamg2")
+
+[sub_resource type="Environment" id="Environment_7a1l7"]
+background_mode = 1
+background_color = Color(0.0784314, 0.054902, 0.0352941, 1)
+sky = SubResource("Sky_2jxq5")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="Player" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -129,5 +144,13 @@ mesh = SubResource("CylinderMesh_58bnk")
 [node name="BaseRing" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.455372, 0)
 mesh = SubResource("TorusMesh_hpxea")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.984663, -0.10806, 0.13697, -0.00534796, 0.766026, 0.642788, -0.174383, -0.633662, 0.7537, 0, 0, 5.3421)
+light_energy = 0.505
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7a1l7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
